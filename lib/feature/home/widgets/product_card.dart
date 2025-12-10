@@ -35,17 +35,20 @@ class ProductCard extends StatelessWidget {
                 ),
                 child: Container(
                   padding: EdgeInsets.all(8),
-                  child: Image.network(
-                    product.image,
-                    fit: BoxFit.contain,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Center(
-                        child: Icon(
-                          Icons.image,
-                          size: 50,
-                        ),
-                      );
-                    },
+                  child: Hero(
+                    tag: 'product_${product.id}',
+                    child: Image.network(
+                      product.image,
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Center(
+                          child: Icon(
+                            Icons.image,
+                            size: 50,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

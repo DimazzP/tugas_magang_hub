@@ -28,5 +28,9 @@ abstract class  LocaleKeys {
   static const home_retry = 'home.retry';
   static const home_noProducts = 'home.noProducts';
   static const home = 'home';
+  static const detail_productId = 'detail.productId';
+  static const detail_price = 'detail.price';
+  static const detail_description = 'detail.description';
+  static const detail = 'detail';
 
 }

@@ -27,6 +27,8 @@ class AppRoutes {
       name: detailProductRoute,
       page: () => DetailProductPage(),
       binding: DetailProductBinding(),
+      transition: Transition.zoom,
+      transitionDuration: Duration(milliseconds: 400),
     ),
   ];
 }

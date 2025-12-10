@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tugas_magang_hub/generated/locale_keys.g.dart';
 
 import 'home_controller.dart';
 import 'widgets/product_card.dart';
@@ -37,7 +39,7 @@ class HomePage extends StatelessWidget {
                     Icon(Icons.error_outline, size: 80, color: Colors.white),
                     SizedBox(height: 20),
                     Text(
-                      'Error',
+                      tr(LocaleKeys.home_error),
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -61,7 +63,7 @@ class HomePage extends StatelessWidget {
                         foregroundColor: Colors.purple,
                         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                       ),
-                      child: Text('Retry'),
+                      child: Text(tr(LocaleKeys.home_retry)),
                     ),
                   ],
                 ),
@@ -79,7 +81,7 @@ class HomePage extends StatelessWidget {
                     Icon(Icons.shopping_bag_outlined, size: 80, color: Colors.white),
                     SizedBox(height: 20),
                     Text(
-                      'No products found',
+                      tr(LocaleKeys.home_noProducts),
                       style: TextStyle(fontSize: 18, color: Colors.white70),
                     ),
                   ],
@@ -113,7 +115,7 @@ class HomePage extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: 16, bottom: 8),
                           child: Text(
-                            'Products',
+                            tr(LocaleKeys.home_products),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 28,
@@ -223,7 +225,10 @@ class HomePage extends StatelessWidget {
                         return ProductCard(
                           product: product,
                           onTap: () {
-                            // TODO: Navigate to detail page
+                            Get.toNamed(
+                              '/detail_product',
+                              arguments: product,
+                            );
                           },
                         );
                       },

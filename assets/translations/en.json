@@ -25,5 +25,10 @@
     "loadingProducts": "Loading products...",
     "retry": "Retry",
     "noProducts": "No products found"
+  },
+  "detail": {
+    "productId": "Product ID: ",
+    "price": "Price",
+    "description": "Description"
   }
 }
