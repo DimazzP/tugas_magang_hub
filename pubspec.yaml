@@ -1,0 +1,47 @@
+name: tugas_magang_hub
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  get: ^4.6.6
+  dio: ^5.7.0
+  easy_localization: ^3.0.7+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+   - assets/images/bag.png
+   - assets/images/clothes.png
+   - assets/images/shirt.png
+   - assets/translations/en.json
+
+  fonts:
+    - family: helvetica
+      fonts:
+        - asset: assets/fonts/helvetica.ttf
+    - family: nunito
+      fonts:
+        - asset: assets/fonts/nunito.ttf
+
+#  dart run easy_localization:generate -S assets/translations -f keys -o locale_keys.g.dart
