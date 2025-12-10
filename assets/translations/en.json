@@ -1,6 +1,22 @@
 {
-  "home": {
+  "title": "Fashion Store",
+  "login": {
+    "login": "Login",
+    "email": "Email",
+    "swipeUpLogin": "Swipe up to login",
+    "password": "Password",
+    "enterPassword": "Enter your password",
+    "enterEmail": "Enter your email",
     "title": "Welcome to Fashion Store",
-    "subtitle": "Discover the latest trends"
+    "subtitle": "Discover the latest trends",
+    "forgotPassword": "Forgot Password?",
+    "oops": "Oops!",
+    "pleaseEnterEmail": "Please enter your email address",
+    "pleaseEnterPassword": "Please enter your password",
+    "loginFailed": "Login Failed",
+    "invalidCredentials": "Invalid email or password.\n\nHint: Use test@example.com / 12345678",
+    "tryAgain": "Try Again",
+    "success": "Success!",
+    "loginSuccessMessage": "Login successful!\nWelcome back!"
   }
 }

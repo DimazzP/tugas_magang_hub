@@ -13,7 +13,13 @@ class AppRoutes {
 
   static final routes = <GetPage>[
 
-    GetPage(name: homeRoute, page: () => HomePage(), binding: HomeBinding()),
+    GetPage(
+      name: homeRoute,
+      page: () => HomePage(),
+      binding: HomeBinding(),
+      transition: Transition.downToUp,
+      transitionDuration: Duration(milliseconds: 600),
+    ),
 
     GetPage(name: loginRoute, page: () => LoginPage(), binding: LoginBinding()),
 

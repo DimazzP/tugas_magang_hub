@@ -11,6 +11,8 @@ class HomePage extends StatelessWidget {
 
     final controller = Get.find<HomeController>();
 
-    return const Placeholder();
+    return Scaffold(
+      body: Center(child: Text('Ini Home'),),
+    );
   }
 }

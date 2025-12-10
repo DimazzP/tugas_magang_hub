@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:tugas_magang_hub/core/routes/app_routes.dart';
+import 'package:tugas_magang_hub/generated/locale_keys.g.dart';
 
 class LoginController extends GetxController {
   // Carousel controllers
@@ -13,6 +15,12 @@ class LoginController extends GetxController {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   var isPasswordHidden = true.obs;
+  final email = 'test@example.com';
+  final password = '12345678';
+
+  // Draggable sheet controller
+  late DraggableScrollableController sheetController;
+  var sheetSize = 0.1.obs;
 
   final previewClothes = [
     'assets/images/clothes.png',
@@ -26,7 +34,17 @@ class LoginController extends GetxController {
     pageController = PageController(initialPage: 0);
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    sheetController = DraggableScrollableController();
     startAutoScroll();
+
+    // Listen to sheet size changes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      sheetController.addListener(() {
+        if (sheetController.isAttached) {
+          sheetSize.value = sheetController.size;
+        }
+      });
+    });
   }
 
   void startAutoScroll() {
@@ -49,44 +67,188 @@ class LoginController extends GetxController {
     isPasswordHidden.value = !isPasswordHidden.value;
   }
 
-  void login() {
-    String email = emailController.text.trim();
-    String password = passwordController.text.trim();
+  void login() async {
+    String inputEmail = emailController.text.trim();
+    String inputPassword = passwordController.text.trim();
 
     // Simple validation
-    if (email.isEmpty) {
-      Get.snackbar(
-        'Error',
-        'Please enter your email',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+    if (inputEmail.isEmpty) {
+      _showErrorDialog(
+        LocaleKeys.login_oops.tr(),
+        LocaleKeys.login_pleaseEnterEmail.tr(),
       );
       return;
     }
 
-    if (password.isEmpty) {
-      Get.snackbar(
-        'Error',
-        'Please enter your password',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+    if (inputPassword.isEmpty) {
+      _showErrorDialog(
+        LocaleKeys.login_oops.tr(),
+        LocaleKeys.login_pleaseEnterPassword.tr(),
       );
       return;
     }
 
-    // TODO: Implement actual login logic here
-    // For now, just navigate to home
-    Get.snackbar(
-      'Success',
-      'Login successful!',
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
+    // Static validation
+    if (inputEmail != email || inputPassword != password) {
+      _showErrorDialog(
+        LocaleKeys.login_loginFailed.tr(),
+        LocaleKeys.login_invalidCredentials.tr(),
+      );
+      return;
+    }
+
+    // Login success - animate sheet down before showing success dialog
+    await _animateSheetDown();
+    _showSuccessDialog();
+  }
+
+  Future<void> _animateSheetDown() async {
+    if (sheetController.isAttached && sheetSize.value > 0.1) {
+      sheetController.animateTo(
+        0.1,
+        duration: Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+      await Future.delayed(Duration(milliseconds: 400));
+    }
+  }
+
+  void _showErrorDialog(String title, String message) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Container(
+          padding: EdgeInsets.all(30),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              colors: [Colors.red.shade400, Colors.red.shade600],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.error_outline_rounded,
+                size: 80,
+                color: Colors.white,
+              ),
+              SizedBox(height: 20),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 15),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white.withValues(alpha: 0.9),
+                ),
+              ),
+              SizedBox(height: 25),
+              ElevatedButton(
+                onPressed: () => Get.back(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.red.shade600,
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                child: Text(
+                  LocaleKeys.login_tryAgain.tr(),
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+      transitionDuration: Duration(milliseconds: 300),
+      transitionCurve: Curves.easeOutBack,
+    );
+  }
+
+  void _showSuccessDialog() {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Container(
+          padding: EdgeInsets.all(30),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              colors: [Colors.green.shade400, Colors.green.shade600],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.check_circle_outline_rounded,
+                size: 80,
+                color: Colors.white,
+              ),
+              SizedBox(height: 20),
+              Text(
+                LocaleKeys.login_success.tr(),
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 15),
+              Text(
+                LocaleKeys.login_loginSuccessMessage.tr(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white.withValues(alpha: 0.9),
+                ),
+              ),
+              SizedBox(height: 25),
+              CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 3,
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+      transitionDuration: Duration(milliseconds: 300),
+      transitionCurve: Curves.easeOutBack,
     );
 
-    Get.offNamed(AppRoutes.homeRoute);
+    // Wait for animation, then navigate
+    Future.delayed(Duration(milliseconds: 1500), () {
+      Get.back(); // Close dialog
+      _navigateToHome();
+    });
+  }
+
+  void _navigateToHome() {
+    Get.offAllNamed(AppRoutes.homeRoute);
   }
 
   @override

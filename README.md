@@ -6,11 +6,6 @@ Flutter application with Clean Architecture, GetX state management, and custom c
 
 - ✅ Clean Architecture (Domain, Data, Presentation layers)
 - ✅ GetX for state management and routing
-- ✅ Custom reusable components
-- ✅ Auto-scrolling carousel
-- ✅ Draggable bottom sheet login
-- ✅ Product entity and remote models
-- ✅ Custom fonts (Helvetica, Nunito)
 
 ## Project Structure
 
@@ -34,17 +29,6 @@ lib/
     └── detail_product/ # Product detail feature
 ```
 
-## Getting Started
-
-1. Clone the repository
-2. Run `flutter pub get`
-3. Run `flutter run`
-
-## Dependencies
-
-- `get: ^4.6.6` - State management and routing
-- `dio: ^5.7.0` - HTTP client
-- `google_fonts: ^6.2.1` - Custom fonts
 
 ## Architecture
 

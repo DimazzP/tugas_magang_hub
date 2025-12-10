@@ -1,11 +1,22 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tugas_magang_hub/core/const/app_size.dart';
 import 'package:tugas_magang_hub/core/const/font_themes.dart';
 import 'package:tugas_magang_hub/core/routes/app_routes.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en'),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -21,6 +32,9 @@ class MyApp extends StatelessWidget {
         fontFamily: FontThemes.mainFont,
         useMaterial3: true,
       ),
+      locale: context.locale,
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
       initialRoute: AppRoutes.loginRoute,
       getPages: AppRoutes.routes,
       debugShowCheckedModeBanner: false,

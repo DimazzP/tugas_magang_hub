@@ -1,5 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
+import 'package:tugas_magang_hub/core/const/app_size.dart';
+import 'package:tugas_magang_hub/core/const/card_colors.dart';
+import 'package:tugas_magang_hub/core/widgets/widget_shadow.dart';
+import 'package:tugas_magang_hub/generated/locale_keys.g.dart';
 
 import 'login_controller.dart';
 
@@ -27,22 +32,21 @@ class LoginPage extends StatelessWidget {
                 children: [
                   SizedBox(height: 50),
 
-                  // Auto-scrolling carousel
+                  // image carousel
                   _buildCarousel(controller),
 
                   SizedBox(height: 20),
 
-                  // Page indicators
+                  // page indicators
                   _buildPageIndicators(controller),
 
                   SizedBox(height: 40),
 
-                  // Welcome text
                   _buildWelcomeText(),
 
                   Spacer(),
 
-                  // Swipe up indicator
+                  // swipe indicator
                   _buildSwipeIndicator(),
 
                   SizedBox(height: 20),
@@ -51,11 +55,11 @@ class LoginPage extends StatelessWidget {
             ),
           ),
 
-          // Draggable bottom sheet for login card
           DraggableScrollableSheet(
+            controller: controller.sheetController,
             initialChildSize: 0.1,
             minChildSize: 0.1,
-            maxChildSize: 0.9,
+            maxChildSize: 0.7,
             builder: (context, scrollController) {
               return Container(
                 decoration: BoxDecoration(
@@ -76,7 +80,6 @@ class LoginPage extends StatelessWidget {
                   controller: scrollController,
                   child: Column(
                     children: [
-                      // Drag handle
                       SizedBox(height: 12),
                       Container(
                         width: 50,
@@ -88,14 +91,10 @@ class LoginPage extends StatelessWidget {
                       ),
                       SizedBox(height: 8),
                       Text(
-                        'Swipe up to login',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12,
-                        ),
+                        LocaleKeys.login_swipeUpLogin.tr(),
+                        style: TextStyle(color: Colors.grey[600], fontSize: 12),
                       ),
 
-                      // Login card content
                       _buildLoginCard(controller),
                       SizedBox(height: 30),
                     ],
@@ -122,22 +121,14 @@ class LoginPage extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-              ),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.asset(
                   controller.previewClothes[index],
                   fit: BoxFit.contain,
                   errorBuilder: (context, error, stackTrace) {
-                    return Center(
-                      child: Icon(
-                        Icons.image,
-                        size: 100,
-                        color: Colors.grey,
-                      ),
-                    );
+                    return Center(child: Icon(Icons.image, size: 100, color: Colors.grey));
                   },
                 ),
               ),
@@ -149,23 +140,25 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _buildPageIndicators(LoginController controller) {
-    return Obx(() => Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            controller.previewClothes.length,
-            (index) => Container(
-              margin: EdgeInsets.symmetric(horizontal: 4),
-              width: controller.currentPage.value == index ? 24 : 8,
-              height: 8,
-              decoration: BoxDecoration(
-                color: controller.currentPage.value == index
-                    ? Colors.white
-                    : Colors.white.withValues(alpha: 0.4),
-                borderRadius: BorderRadius.circular(4),
-              ),
+    return Obx(
+      () => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+          controller.previewClothes.length,
+          (index) => Container(
+            margin: EdgeInsets.symmetric(horizontal: 4),
+            width: controller.currentPage.value == index ? 24 : 8,
+            height: 8,
+            decoration: BoxDecoration(
+              color: controller.currentPage.value == index
+                  ? Colors.white
+                  : Colors.white.withValues(alpha: 0.4),
+              borderRadius: BorderRadius.circular(4),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget _buildWelcomeText() {
@@ -174,21 +167,14 @@ class LoginPage extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Welcome to Fashion Store',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+            LocaleKeys.login_title.tr(),
             textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
           Text(
-            'Discover the latest trends',
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.8),
-              fontSize: 16,
-            ),
+            LocaleKeys.login_subtitle.tr(),
+            style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 16),
           ),
         ],
       ),
@@ -198,18 +184,10 @@ class LoginPage extends StatelessWidget {
   Widget _buildSwipeIndicator() {
     return Column(
       children: [
-        Icon(
-          Icons.keyboard_arrow_up_rounded,
-          color: Colors.white,
-          size: 40,
-        ),
+        Icon(Icons.keyboard_arrow_up_rounded, color: Colors.white, size: 40),
         Text(
-          'Swipe up to login',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
+          LocaleKeys.login_swipeUpLogin.tr(),
+          style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
         ),
       ],
     );
@@ -222,26 +200,19 @@ class LoginPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Login',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.purple,
-            ),
+            LocaleKeys.login_login.tr(),
+            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: CardColors.purplePrimary.text),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 30),
 
-          // Email input
           TextField(
             controller: controller.emailController,
             decoration: InputDecoration(
-              labelText: 'Email',
-              hintText: 'Enter your email',
-              prefixIcon: Icon(Icons.email, color: Colors.purple),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
+              labelText: LocaleKeys.login_email.tr(),
+              hintText: LocaleKeys.login_enterEmail.tr(),
+              prefixIcon: Icon(Icons.email, color: CardColors.purplePrimary.shadow),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(color: Colors.purple, width: 2),
@@ -251,66 +222,43 @@ class LoginPage extends StatelessWidget {
           ),
           SizedBox(height: 20),
 
-          // Password input
-          Obx(() => TextField(
-                controller: controller.passwordController,
-                obscureText: controller.isPasswordHidden.value,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  hintText: 'Enter your password',
-                  prefixIcon: Icon(Icons.lock, color: Colors.purple),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      controller.isPasswordHidden.value
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color: Colors.purple,
-                    ),
-                    onPressed: controller.togglePasswordVisibility,
+          Obx(
+            () => TextField(
+              controller: controller.passwordController,
+              obscureText: controller.isPasswordHidden.value,
+              decoration: InputDecoration(
+                labelText: LocaleKeys.login_password.tr(),
+                hintText: LocaleKeys.login_enterPassword.tr(),
+                prefixIcon: Icon(Icons.lock, color: CardColors.purplePrimary.shadow),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    controller.isPasswordHidden.value ? Icons.visibility_off : Icons.visibility,
+                    color: CardColors.purplePrimary.shadow,
                   ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.purple, width: 2),
-                  ),
+                  onPressed: controller.togglePasswordVisibility,
                 ),
-              )),
-          SizedBox(height: 30),
-
-          // Login button
-          ElevatedButton(
-            onPressed: controller.login,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.purple,
-              foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              elevation: 3,
-            ),
-            child: Text(
-              'Login',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.purple, width: 2),
+                ),
               ),
             ),
           ),
-          SizedBox(height: 15),
-
-          // Forgot password
-          TextButton(
-            onPressed: () {
-              // TODO: Implement forgot password
-            },
-            child: Text(
-              'Forgot Password?',
-              style: TextStyle(
-                color: Colors.purple,
-                fontSize: 14,
+          SizedBox(height: 30),
+          WidgetShadow(
+            width: double.infinity,
+            cardColor: CardColors.purplePrimary,
+            isCanClick: true,
+            radius: AppSize.radiusSmallMedium,
+            onTap: controller.login,
+            child: Center(
+              child: Padding(
+                padding: AppSize.paddingSmall,
+                child: Text(
+                  LocaleKeys.login_login.tr(),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: CardColors.purplePrimary.text),
+                ),
               ),
             ),
           ),

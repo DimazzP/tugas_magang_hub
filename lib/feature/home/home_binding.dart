@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
-import 'package:tugas_magang_hub/feature/login/login_controller.dart';
+
+import 'home_controller.dart';
 
 class HomeBinding extends Bindings{
   @override
   void dependencies() {
-    Get.lazyPut<LoginController>(()=>LoginController());
+    Get.lazyPut<HomeController>(()=>HomeController());
   }
 }
