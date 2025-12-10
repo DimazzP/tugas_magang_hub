@@ -24,8 +24,9 @@ class LoginController extends GetxController {
 
   final previewClothes = [
     'assets/images/clothes.png',
+    'assets/images/hdd.png',
     'assets/images/bag.png',
-    'assets/images/shirt.png',
+    'assets/images/monitor.png',
   ];
 
   @override

@@ -22,5 +22,11 @@ abstract class  LocaleKeys {
   static const login_success = 'login.success';
   static const login_loginSuccessMessage = 'login.loginSuccessMessage';
   static const login = 'login';
+  static const home_error = 'home.error';
+  static const home_products = 'home.products';
+  static const home_loadingProducts = 'home.loadingProducts';
+  static const home_retry = 'home.retry';
+  static const home_noProducts = 'home.noProducts';
+  static const home = 'home';
 
 }

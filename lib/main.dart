@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:tugas_magang_hub/core/const/app_size.dart';
 import 'package:tugas_magang_hub/core/const/font_themes.dart';
 import 'package:tugas_magang_hub/core/routes/app_routes.dart';
+import 'package:tugas_magang_hub/generated/locale_keys.g.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSize.initialize(context);
     return GetMaterialApp(
-      title: 'Tugas Magang Hub',
+      title: tr(LocaleKeys.title),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         fontFamily: FontThemes.mainFont,
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
-      initialRoute: AppRoutes.loginRoute,
+      initialRoute: AppRoutes.homeRoute,
       getPages: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
     );

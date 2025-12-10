@@ -1,5 +1,5 @@
 {
-  "title": "Fashion Store",
+  "title": "Magang Hub Store",
   "login": {
     "login": "Login",
     "email": "Email",
@@ -7,8 +7,8 @@
     "password": "Password",
     "enterPassword": "Enter your password",
     "enterEmail": "Enter your email",
-    "title": "Welcome to Fashion Store",
-    "subtitle": "Discover the latest trends",
+    "title": "Welcome to Magang Hub Store",
+    "subtitle": "Find Your Needs",
     "forgotPassword": "Forgot Password?",
     "oops": "Oops!",
     "pleaseEnterEmail": "Please enter your email address",
@@ -18,5 +18,12 @@
     "tryAgain": "Try Again",
     "success": "Success!",
     "loginSuccessMessage": "Login successful!\nWelcome back!"
+  },
+  "home": {
+    "error": "Error",
+    "products": "Products",
+    "loadingProducts": "Loading products...",
+    "retry": "Retry",
+    "noProducts": "No products found"
   }
 }

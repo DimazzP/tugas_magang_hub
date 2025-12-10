@@ -18,6 +18,7 @@ dependencies:
   get: ^4.6.6
   dio: ^5.7.0
   easy_localization: ^3.0.7+1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -33,7 +34,8 @@ flutter:
   assets:
    - assets/images/bag.png
    - assets/images/clothes.png
-   - assets/images/shirt.png
+   - assets/images/hdd.png
+   - assets/images/monitor.png
    - assets/translations/en.json
 
   fonts:
